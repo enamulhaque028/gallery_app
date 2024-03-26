@@ -1,7 +1,7 @@
 class ImageAssets {
   const ImageAssets._();
 
-  static String get imgCatalog => 'img_logo'.png;
+  static String get imgLogo => 'img_logo'.png;
 }
 
 extension on String {
