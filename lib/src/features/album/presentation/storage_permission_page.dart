@@ -4,6 +4,7 @@ import 'package:gallery_app/src/config/gaps.dart';
 
 import '../../../config/constants/app_color.dart';
 import '../../../config/constants/image_assets.dart';
+import 'album_list_page.dart';
 
 class StoragePermissionPage extends StatelessWidget {
   const StoragePermissionPage({super.key});
@@ -11,6 +12,7 @@ class StoragePermissionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.kWhiteColor,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -47,7 +49,15 @@ class StoragePermissionPage extends StatelessWidget {
               42.vGap,
               CustomTextButton(
                 title: "Grant Access",
-                onTapBtn: () {},
+                onTapBtn: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AlbumListPage(),
+                    ),
+                    (Route<dynamic> route) => false,
+                  );
+                },
               ),
             ],
           ),
