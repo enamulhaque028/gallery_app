@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gallery_app/src/config/constants/app_color.dart';
+
+import 'src/config/constants/font_assets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,8 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Gallery app',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColor.kPrimaryColor),
         useMaterial3: true,
+        fontFamily: FontAssets.fontFamilyRoboto,
       ),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
