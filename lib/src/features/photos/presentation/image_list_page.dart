@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../config/constants/app_color.dart';
+import 'image_viewer_page.dart';
 import 'widgets/image_list_tile.dart';
 
 class ImageListPage extends StatelessWidget {
@@ -31,7 +32,14 @@ class ImageListPage extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         itemBuilder: (context, index) {
           return ImageListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ImageViewerPage(),
+                ),
+              );
+            },
           );
         },
       ),
