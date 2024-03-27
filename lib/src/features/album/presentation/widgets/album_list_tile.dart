@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../common_widgets/extended_inkwell.dart';
 import '../../../../config/constants/app_color.dart';
 
 class AlbumListTile extends StatelessWidget {
@@ -12,8 +13,9 @@ class AlbumListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ExtendInkWell(
       onTap: onTap,
+      radius: 10,
       child: Stack(
         children: [
           ClipRRect(
@@ -55,7 +57,7 @@ class AlbumListTile extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
