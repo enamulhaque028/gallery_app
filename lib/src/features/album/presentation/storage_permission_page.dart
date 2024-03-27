@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:gallery_app/src/common_widgets/custom_button.dart';
 import 'package:gallery_app/src/config/gaps.dart';
@@ -18,15 +16,8 @@ class StoragePermissionPage extends StatefulWidget {
 
 class _StoragePermissionPageState extends State<StoragePermissionPage> {
   Future<bool> _promptPermissionSetting() async {
-    if (Platform.isIOS) {
-      if (await Permission.photos.request().isGranted) {
-        return true;
-      }
-    }
-    if (Platform.isAndroid) {
-      if (await Permission.photos.request().isGranted) {
-        return true;
-      }
+    if (await Permission.photos.request().isGranted) {
+      return true;
     }
     return false;
   }

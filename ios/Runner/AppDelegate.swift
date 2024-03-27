@@ -7,7 +7,12 @@ import Flutter
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    GeneratedPluginRegistrant.register(with: self)
+      let _: FlutterViewController = window?.rootViewController as! FlutterViewController
+          
+      // Call the static method 'register' directly on the type 'PhotoGalleryPlugin'
+      PhotoGalleryPlugin.register(with: registrar(forPlugin: "PhotoGalleryPlugin")!)
+          
+      GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
