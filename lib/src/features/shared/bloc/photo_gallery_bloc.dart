@@ -1,10 +1,11 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../album/domain/album.dart';
 import '../data/photo_gallery_repository.dart';
 
+part 'photo_gallery_bloc.freezed.dart';
 part 'photo_gallery_event.dart';
 part 'photo_gallery_state.dart';
 
@@ -12,7 +13,11 @@ class PhotoGalleryBloc extends Bloc<PhotoGalleryEvent, PhotoGalleryState> {
   final PhotoGalleryRepository photoGalleryRepository;
 
   PhotoGalleryBloc({required this.photoGalleryRepository})
-      : super(const PhotoGalleryState()) {
+      : super(const PhotoGalleryState(
+          isLoadingAlbums: true,
+          albums: [],
+          albumThumbnailByte: [],
+        )) {
     on<GetAlbumListEvent>(
         (event, emit) async => await _mapGetAlbumListEventToState(event, emit));
   }
