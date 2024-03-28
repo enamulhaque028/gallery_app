@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../config/constants/app_color.dart';
-import '../../photos/presentation/image_list_page.dart';
+import '../data/photo_gallery_service.dart';
 import 'widgets/album_list_tile.dart';
 
 class AlbumListPage extends StatelessWidget {
@@ -34,12 +34,13 @@ class AlbumListPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return AlbumListTile(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ImageListPage(),
-                ),
-              );
+              PhotoGalleryService.listAlbums();
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const ImageListPage(),
+              //   ),
+              // );
             },
           );
         },
