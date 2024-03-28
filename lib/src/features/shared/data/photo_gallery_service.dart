@@ -1,11 +1,16 @@
 import 'package:flutter/services.dart';
 
-import '../domain/album.dart';
+import '../../album/domain/album.dart';
 
 class PhotoGalleryService {
-  static const MethodChannel _channel = MethodChannel('photo_gallery');
+  PhotoGalleryService._();
+  static PhotoGalleryService instance = PhotoGalleryService._();
 
-  static Future<List<Album>> listAlbums({
+  final MethodChannel _channel = const MethodChannel('photo_gallery');
+
+  /// List all available gallery albums and counts number of items of [MediumType].
+  /// [hideIfEmpty] whether to hide empty albums, only available on iOS
+  Future<List<Album>> listAlbums({
     bool newest = true,
     bool hideIfEmpty = true,
   }) async {
@@ -16,7 +21,8 @@ class PhotoGalleryService {
     return json.map<Album>((album) => Album.fromJson(album, newest)).toList();
   }
 
-  static Future<List<int>> getAlbumThumbnail({
+  /// Get album thumbnail by album id
+  Future<List<int>> getAlbumThumbnail({
     required String albumId,
     bool newest = true,
     int? width,
