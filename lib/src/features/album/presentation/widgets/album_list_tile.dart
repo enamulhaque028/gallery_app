@@ -51,7 +51,7 @@ class AlbumListTile extends StatelessWidget {
                 Text(
                   albumName,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: AppColor.kWhiteColor,
                   ),
