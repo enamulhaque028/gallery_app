@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../common_widgets/extended_inkwell.dart';
 import '../../../../config/constants/app_color.dart';
+import '../../../../config/constants/constants.dart';
 
 class AlbumListTile extends StatelessWidget {
   const AlbumListTile({
     super.key,
     required this.onTap,
+    required this.albumThumbnail,
+    required this.albumName,
+    required this.imageCount,
   });
 
+  final Uint8List albumThumbnail;
+  final String albumName;
+  final int imageCount;
   final VoidCallback onTap;
 
   @override
@@ -20,10 +28,11 @@ class AlbumListTile extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              "https://img.freepik.com/premium-photo/lake-braies-landscape-simple-education_956920-35983.jpg",
+            child: FadeInImage(
               height: 173,
               fit: BoxFit.cover,
+              placeholder: MemoryImage(kTransparentImage),
+              image: MemoryImage(albumThumbnail),
             ),
           ),
           ClipRRect(
@@ -33,23 +42,25 @@ class AlbumListTile extends StatelessWidget {
               color: AppColor.kBlackColor.withOpacity(0.5),
             ),
           ),
-          const Positioned(
+          Positioned(
             bottom: 12,
             left: 14,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Recent",
-                  style: TextStyle(
+                  albumName,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
                     color: AppColor.kWhiteColor,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  "122 Photos",
-                  style: TextStyle(
+                  "1$imageCount Photos",
+                  style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: AppColor.kTextSubtitleColor,
