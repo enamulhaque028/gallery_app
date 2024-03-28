@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gallery_app/src/common_widgets/custom_button.dart';
 import 'package:gallery_app/src/config/gaps.dart';
@@ -16,9 +18,16 @@ class StoragePermissionPage extends StatefulWidget {
 
 class _StoragePermissionPageState extends State<StoragePermissionPage> {
   Future<bool> _promptPermissionSetting() async {
-    if (await Permission.storage.request().isGranted ||
-        await Permission.photos.request().isGranted) {
-      return true;
+    if (Platform.isAndroid) {
+      if (await Permission.storage.request().isGranted ||
+          await Permission.photos.request().isGranted) {
+        return true;
+      }
+    }
+    if (Platform.isIOS) {
+      if (await Permission.photos.request().isGranted) {
+        return true;
+      }
     }
     return false;
   }
@@ -30,9 +39,16 @@ class _StoragePermissionPageState extends State<StoragePermissionPage> {
   }
 
   Future<void> checkIfPermissionGranted() async {
-    if (await Permission.storage.isGranted ||
-        await Permission.photos.isGranted) {
-      navigateToAlbums(true);
+    if (Platform.isAndroid) {
+      if (await Permission.storage.isGranted ||
+          await Permission.photos.isGranted) {
+        navigateToAlbums(true);
+      }
+    }
+    if (Platform.isIOS) {
+      if (await Permission.photos.isGranted) {
+        navigateToAlbums(true);
+      }
     }
   }
 
