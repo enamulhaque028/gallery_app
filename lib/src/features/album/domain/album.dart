@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gallery_app/src/features/shared/data/photo_gallery_repository.dart';
 
+import '../../photos/domain/media.dart';
+
 part 'album.freezed.dart';
 
 @freezed
@@ -35,6 +37,19 @@ class Album with _$Album {
       width: width,
       height: height,
       highQuality: highQuality,
+    );
+  }
+
+  Future<Media> listMedia({
+    int? skip,
+    int? take,
+    bool? lightWeight,
+  }) {
+    return PhotoGalleryRepository().listMedia(
+      album: this,
+      skip: skip,
+      take: take,
+      lightWeight: lightWeight,
     );
   }
 }

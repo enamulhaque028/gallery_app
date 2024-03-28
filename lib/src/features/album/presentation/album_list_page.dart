@@ -65,7 +65,9 @@ class _AlbumListPageState extends State<AlbumListPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ImageListPage(),
+                            builder: (context) => ImageListPage(
+                              album: album,
+                            ),
                           ),
                         );
                       },

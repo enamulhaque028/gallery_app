@@ -1,7 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ImageViewerPage extends StatelessWidget {
-  const ImageViewerPage({super.key});
+  const ImageViewerPage({
+    super.key,
+    required this.imagePath,
+  });
+
+  final String imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +26,8 @@ class ImageViewerPage extends StatelessWidget {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: Image.network(
-          "https://img.freepik.com/premium-photo/lake-braies-landscape-simple-education_956920-35983.jpg",
+        child: Image.file(
+          File(imagePath),
         ),
       ),
     );

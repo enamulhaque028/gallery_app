@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../../../../common_widgets/extended_inkwell.dart';
+import '../../../../config/constants/constants.dart';
+import 'thumbnail_provider.dart';
 
 class ImageListTile extends StatelessWidget {
   const ImageListTile({
     super.key,
+    required this.mediaId,
     required this.onTap,
   });
 
+  final String mediaId;
   final VoidCallback onTap;
 
   @override
@@ -17,10 +21,18 @@ class ImageListTile extends StatelessWidget {
       radius: 10,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child: Image.network(
-          "https://img.freepik.com/premium-photo/lake-braies-landscape-simple-education_956920-35983.jpg",
-          height: 173,
-          fit: BoxFit.cover,
+        child: Container(
+          color: Colors.black12,
+          child: FadeInImage(
+            height: 173,
+            width: 173,
+            fit: BoxFit.cover,
+            placeholder: MemoryImage(kTransparentImage),
+            image: ThumbnailProvider(
+              mediumId: mediaId,
+              highQuality: true,
+            ),
+          ),
         ),
       ),
     );

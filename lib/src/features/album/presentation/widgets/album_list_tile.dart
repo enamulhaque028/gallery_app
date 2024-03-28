@@ -59,7 +59,7 @@ class AlbumListTile extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  "1$imageCount Photos",
+                  "$imageCount Photos",
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
