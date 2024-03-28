@@ -16,7 +16,8 @@ class StoragePermissionPage extends StatefulWidget {
 
 class _StoragePermissionPageState extends State<StoragePermissionPage> {
   Future<bool> _promptPermissionSetting() async {
-    if (await Permission.photos.request().isGranted) {
+    if (await Permission.storage.request().isGranted ||
+        await Permission.photos.request().isGranted) {
       return true;
     }
     return false;
@@ -29,7 +30,8 @@ class _StoragePermissionPageState extends State<StoragePermissionPage> {
   }
 
   Future<void> checkIfPermissionGranted() async {
-    if (await Permission.photos.isGranted) {
+    if (await Permission.storage.isGranted ||
+        await Permission.photos.isGranted) {
       navigateToAlbums(true);
     }
   }
