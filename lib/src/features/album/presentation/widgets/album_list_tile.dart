@@ -30,6 +30,7 @@ class AlbumListTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             child: FadeInImage(
               height: 173,
+              width: double.maxFinite,
               fit: BoxFit.cover,
               placeholder: MemoryImage(kTransparentImage),
               image: MemoryImage(albumThumbnail),
@@ -39,6 +40,7 @@ class AlbumListTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             child: Container(
               height: 173,
+              width: double.maxFinite,
               color: AppColor.kBlackColor.withOpacity(0.5),
             ),
           ),
@@ -51,7 +53,7 @@ class AlbumListTile extends StatelessWidget {
                 Text(
                   albumName,
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
                     fontWeight: FontWeight.w400,
                     color: AppColor.kWhiteColor,
                   ),

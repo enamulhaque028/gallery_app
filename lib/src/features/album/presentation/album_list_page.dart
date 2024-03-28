@@ -49,7 +49,7 @@ class _AlbumListPageState extends State<AlbumListPage> {
                 )
               : GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                     crossAxisSpacing: 4,
                     mainAxisSpacing: 6,
                   ),
