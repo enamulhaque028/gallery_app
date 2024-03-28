@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../data/photo_gallery_service.dart';
+import 'package:gallery_app/src/features/shared/data/photo_gallery_repository.dart';
 
 part 'album.freezed.dart';
 
@@ -31,7 +30,7 @@ class Album with _$Album {
     int? height,
     bool? highQuality = false,
   }) {
-    return PhotoGalleryService.getAlbumThumbnail(
+    return PhotoGalleryRepository().getAlbumThumbnail(
       albumId: id,
       width: width,
       height: height,

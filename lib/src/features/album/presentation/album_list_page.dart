@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/constants/app_color.dart';
 import '../../photos/presentation/image_list_page.dart';
-import '../data/photo_gallery_service.dart';
-import '../domain/album.dart';
+import '../../shared/bloc/photo_gallery_bloc.dart';
 import 'widgets/album_list_tile.dart';
 
 class AlbumListPage extends StatefulWidget {
@@ -16,27 +15,14 @@ class AlbumListPage extends StatefulWidget {
 }
 
 class _AlbumListPageState extends State<AlbumListPage> {
-  List<Album> _albums = [];
-  bool _loading = false;
-  List<Uint8List> byte = [];
-
   @override
   void initState() {
+    getAlbums();
     super.initState();
-    _loading = true;
-    initAsync();
   }
 
-  Future<void> initAsync() async {
-    List<Album> albums = await PhotoGalleryService.listAlbums();
-    for (var i = 0; i < albums.length; i++) {
-      var elements = await albums[i].getThumbnail(highQuality: true);
-      byte.add(Uint8List.fromList(elements));
-    }
-    setState(() {
-      _albums = albums;
-      _loading = false;
-    });
+  void getAlbums() {
+    context.read<PhotoGalleryBloc>().add(const GetAlbumListEvent());
   }
 
   @override
@@ -55,35 +41,39 @@ class _AlbumListPageState extends State<AlbumListPage> {
         ),
         centerTitle: false,
       ),
-      body: _loading
-          ? const Center(
-              child: CupertinoActivityIndicator(),
-            )
-          : GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 4,
-                mainAxisSpacing: 6,
-              ),
-              itemCount: _albums.length,
-              padding: const EdgeInsets.all(12),
-              itemBuilder: (context, index) {
-                var album = _albums[index];
-                return AlbumListTile(
-                  albumThumbnail: byte[index],
-                  albumName: album.name ?? "Unnamed Album",
-                  imageCount: album.count,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ImageListPage(),
-                      ),
+      body: BlocBuilder<PhotoGalleryBloc, PhotoGalleryState>(
+        builder: (context, state) {
+          return state.isLoadingAlbums
+              ? const Center(
+                  child: CupertinoActivityIndicator(),
+                )
+              : GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 6,
+                  ),
+                  itemCount: state.albums.length,
+                  padding: const EdgeInsets.all(12),
+                  itemBuilder: (context, index) {
+                    var album = state.albums[index];
+                    return AlbumListTile(
+                      albumThumbnail: state.albumThumbnailByte[index],
+                      albumName: album.name ?? "Unnamed Album",
+                      imageCount: album.count,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ImageListPage(),
+                          ),
+                        );
+                      },
                     );
                   },
                 );
-              },
-            ),
+        },
+      ),
     );
   }
 }
